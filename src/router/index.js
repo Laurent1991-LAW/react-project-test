@@ -1,11 +1,13 @@
 import Login from '../pages/Login'
 import Layout from '../pages/Layout'
-
 import { createBrowserRouter } from 'react-router-dom'
 import AuthRoute from '@/components/AuthRoute'
-import Article from '@/pages/Article'
-import Home from '@/pages/Home'
-import Publish from '@/pages/Publish'
+
+import { Suspense, lazy } from 'react'
+
+const Home = lazy(() => import('@/pages/Home'))
+const Article = lazy(() => import('@/pages/Article'))
+const Publish = lazy(() => import('@/pages/Publish'))
 
 const router = createBrowserRouter([
     {
@@ -14,15 +16,15 @@ const router = createBrowserRouter([
         children: [
             {
                 index: true,
-                element: <Home />
+                element: <Suspense fallback={'loading'}><Home /></Suspense>
             },
             {
                 path: 'article',
-                element: <Article />
+                element: <Suspense fallback={'loading'}><Article /></Suspense>
             },
             {
                 path: 'publish',
-                element: <Publish />
+                element: <Suspense fallback={'loading'}><Publish /></Suspense>
             }
         ]
     },
